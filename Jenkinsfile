@@ -19,12 +19,9 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Building project...'
-        bat '''
-"C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Current\Bin\\MSBuild.exe" SNKRS.csproj /p:Configuration=Release
-'''
-
-
-
+                bat '''
+                "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\MSBuild\\Current\\Bin\\MSBuild.exe" SNKRS.csproj /p:Configuration=Release
+                '''
             }
         }
 
@@ -41,29 +38,29 @@ pipeline {
                 bat 'dotnet publish -c Release -o ./publish'
             }
         }
+
         stage('Check .NET SDK') {
-    steps {
-        bat 'dotnet --version'
-        bat 'dotnet --list-sdks'
-    }
-}
+            steps {
+                bat 'dotnet --version'
+                bat 'dotnet --list-sdks'
+            }
+        }
 
-       stage('Copy to IIS folder') {
-    steps {
-        echo 'Copying to IIS root folder...'
-        bat 'iisreset /stop'
-        bat '''
-        if exist "%WORKSPACE%\\publish" (
-            xcopy "%WORKSPACE%\\publish" "C:\\inetpub\\wwwroot\\TrienKhaiPhamMe" /E /Y /I /R
-        ) else (
-            echo "Publish folder not found!"
-            exit /b 1
-        )
-        '''
-        bat 'iisreset /start'
-    }
-}
-
+        stage('Copy to IIS folder') {
+            steps {
+                echo 'Copying to IIS root folder...'
+                bat 'iisreset /stop'
+                bat '''
+                if exist "%WORKSPACE%\\publish" (
+                    xcopy "%WORKSPACE%\\publish" "C:\\inetpub\\wwwroot\\TrienKhaiPhamMem" /E /Y /I /R
+                ) else (
+                    echo Publish folder not found!
+                    exit /b 1
+                )
+                '''
+                bat 'iisreset /start'
+            }
+        }
 
         stage('Deploy to IIS') {
             steps {
