@@ -5,30 +5,21 @@
         stage('Clone') {
             steps {
                 echo 'Cloning source code'
-                git branch: 'main', url: 'https://github.com/Qthanh074/tkpm1.git'
+                git branch: 'main', url: 'https://github.com/Qthanh074/TKPM.git'
             }
         }
 
-       stage('Restore NuGet packages') {
-    steps {
-        echo 'Restoring NuGet packages...'
-  bat 'C:\\Tools\\nuget\\nuget.exe restore D:\\TKPM2\\web-selling-shoes-main\\SNKRS.sln'
-
-
-bat 'dir /s /b'
-
-
+        stage('Restore package') {
+            steps {
+                echo 'Restoring packages...'
+                bat 'dotnet restore'
             }
-                   }
-
-        
+        }
 
         stage('Build') {
             steps {
                 echo 'Building project...'
-                bat '''
-                "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\MSBuild\\Current\\Bin\\MSBuild.exe" SNKRS.csproj /p:Configuration=Release
-                '''
+                bat 'dotnet build --configuration Release'
             }
         }
 
@@ -45,29 +36,29 @@ bat 'dir /s /b'
                 bat 'dotnet publish -c Release -o ./publish'
             }
         }
-
         stage('Check .NET SDK') {
-            steps {
-                bat 'dotnet --version'
-                bat 'dotnet --list-sdks'
-            }
-        }
+    steps {
+        bat 'dotnet --version'
+        bat 'dotnet --list-sdks'
+    }
+}
 
-        stage('Copy to IIS folder') {
-            steps {
-                echo 'Copying to IIS root folder...'
-                bat 'iisreset /stop'
-                bat '''
-                if exist "%WORKSPACE%\\publish" (
-                    xcopy "%WORKSPACE%\\publish" "C:\\inetpub\\wwwroot\\TrienKhaiPhamMem" /E /Y /I /R
-                ) else (
-                    echo Publish folder not found!
-                    exit /b 1
-                )
-                '''
-                bat 'iisreset /start'
-            }
-        }
+       stage('Copy to IIS folder') {
+    steps {
+        echo 'Copying to IIS root folder...'
+        bat 'iisreset /stop'
+        bat '''
+        if exist "%WORKSPACE%\\publish" (
+            xcopy "%WORKSPACE%\\publish" "C:\\inetpub\\wwwroot\\TrienKhaiPhamMem4" /E /Y /I /R
+        ) else (
+            echo "Publish folder not found!"
+            exit /b 1
+        )
+        '''
+        bat 'iisreset /start'
+    }
+}
+
 
         stage('Deploy to IIS') {
             steps {
@@ -75,7 +66,7 @@ bat 'dir /s /b'
                 powershell '''
                     Import-Module WebAdministration
                     if (-not (Test-Path IIS:\\Sites\\TKPM4)) {
-                        New-Website -Name "TKPM4" -Port 83 -PhysicalPath "C:\\inetpub\\wwwroot\\TrienKhaiPhamMem" -Force
+                        New-Website -Name "TKPM4" -Port 83 -PhysicalPath "C:\\inetpub\\wwwroot\\TrienKhaiPhamMem4" -Force
                     }
                 '''
             }
