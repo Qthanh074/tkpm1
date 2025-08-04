@@ -42,7 +42,6 @@
 		bat 'dotnet --list-sdks'
 	}
 }
-
 	   stage('Copy to IIS folder') {
 	steps {
 		echo 'Copying to IIS root folder...'
