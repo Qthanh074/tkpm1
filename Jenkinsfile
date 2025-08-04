@@ -9,17 +9,14 @@ pipeline {
             }
         }
 
-       stage('Restore NuGet packages') {
-    steps {
-        echo 'Restoring NuGet packages...'
-  bat 'C:\\Tools\\nuget\\nuget.exe restore D:\\TKPM2\\web-selling-shoes-main\\SNKRS.sln'
+stage('restore package') {
+		steps
+		{
+			echo 'Restore package'
+			bat 'dotnet restore'
+		}
+	}
 
-
-bat 'dir /s /b'
-
-
-            }
-                   }
 
         
 
