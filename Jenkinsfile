@@ -12,7 +12,7 @@ pipeline {
        stage('Restore NuGet packages') {
     steps {
         echo 'Restoring NuGet packages...'
-        bat 'C:\\Tools\\nuget\\nuget.exe restore SNKRS.sln'
+        bat 'C:\\Tools\\nuget\\nuget.exe restore SNKRS.csproj'
             }
                    }
 
