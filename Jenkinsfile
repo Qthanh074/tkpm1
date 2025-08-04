@@ -13,6 +13,7 @@ pipeline {
             steps {
                 echo 'Restoring packages...'
                 bat 'dotnet restore'
+                  bat 'nuget restore SNKRS.csproj'
             }
         }
 
