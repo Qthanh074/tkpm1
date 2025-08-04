@@ -5,7 +5,7 @@ pipeline {
         stage('Clone') {
             steps {
                 echo 'Cloning source code'
-                git branch: 'main', url: 'https://github.com/Qthanh074/GIT-TKPM.git'
+                git branch: 'main', url: 'https://github.com/Qthanh074/tkpm1.git'
             }
         }
 
@@ -19,8 +19,7 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Building project...'
-               bat "\"C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\MSBuild\\Current\\Bin\\MSBuild.exe\" SNKRS.csproj /p:Configuration=Release"
-
+                              bat 'dotnet build --configuration Release'
             }
         }
 
@@ -50,7 +49,7 @@ pipeline {
         bat 'iisreset /stop'
         bat '''
         if exist "%WORKSPACE%\\publish" (
-            xcopy "%WORKSPACE%\\publish" "C:\\inetpub\\wwwroot\\TrienKhaiPhamMem4" /E /Y /I /R
+            xcopy "%WORKSPACE%\\publish" "C:\\inetpub\\wwwroot\\TrienKhaiPhamMem" /E /Y /I /R
         ) else (
             echo "Publish folder not found!"
             exit /b 1
@@ -67,7 +66,7 @@ pipeline {
                 powershell '''
                     Import-Module WebAdministration
                     if (-not (Test-Path IIS:\\Sites\\TKPM4)) {
-                        New-Website -Name "TKPM4" -Port 83 -PhysicalPath "C:\\inetpub\\wwwroot\\TrienKhaiPhamMem4" -Force
+                        New-Website -Name "TKPM4" -Port 83 -PhysicalPath "C:\\inetpub\\wwwroot\\TrienKhaiPhamMem" -Force
                     }
                 '''
             }
