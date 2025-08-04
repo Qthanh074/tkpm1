@@ -9,12 +9,13 @@ pipeline {
             }
         }
 
-        stage('Restore package') {
-            steps {
-            echo 'Restoring NuGet packages...'
-               bat 'dotnet restore SNKRS.csproj'
-
+       stage('Restore NuGet packages') {
+    steps {
+        echo 'Restoring NuGet packages...'
+        bat 'C:\\Tools\\nuget\\nuget.exe restore SNKRS.sln'
             }
+                   }
+
         }
 
         stage('Build') {
