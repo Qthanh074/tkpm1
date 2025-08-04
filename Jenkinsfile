@@ -12,7 +12,7 @@
       steps {
         echo '🛠️ Restore và build bằng MSBuild…'
         bat '''
-        "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\MSBuild\\Current\\Bin\\MSBuild.exe" SNKRS.csproj /t:Restore,Build /p:Configuration=Release
+          "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\MSBuild\\Current\\Bin\\MSBuild.exe" SNKRS.csproj /t:Restore,Build /p:Configuration=Release
         '''
       }
     }
@@ -36,14 +36,14 @@
         echo '🚀 Deploy lên IIS…'
         bat 'iisreset /stop'
         bat '''
-        if exist "%WORKSPACE%\\publish" (
-          rmdir /S /Q "C:\\inetpub\\wwwroot\\TrienKhaiPhamMem"
-          mkdir "C:\\inetpub\\wwwroot\\TrienKhaiPhamMem"
-          xcopy "%WORKSPACE%\\publish" "C:\\inetpub\\wwwroot\\TrienKhaiPhamMem" /E /Y /I /R
-        ) else (
-          echo Publish folder not found!
-          exit /b 1
-        )
+          if exist "%WORKSPACE%\\publish" (
+            rmdir /S /Q "C:\\inetpub\\wwwroot\\TrienKhaiPhamMem"
+            mkdir "C:\\inetpub\\wwwroot\\wwwroot\\TrienKhaiPhamMem"
+            xcopy "%WORKSPACE%\\publish" "C:\\inetpub\\wwwroot\\TrienKhaiPhamMem" /E /Y /I /R
+          ) else (
+            echo Publish folder not found!
+            exit /b 1
+          )
         '''
         bat 'iisreset /start'
         powershell '''
