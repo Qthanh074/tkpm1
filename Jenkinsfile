@@ -5,7 +5,7 @@
         stage('Clone') {
             steps {
                 echo 'Cloning source code'
-                git branch: 'main', url: 'https://github.com/Qthanh074/TKPM.git'
+                git branch: 'main', url: 'https://github.com/Qthanh074/tkpm1.git'
             }
         }
 
