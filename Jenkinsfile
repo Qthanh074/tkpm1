@@ -19,7 +19,8 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Building project...'
-                bat 'dotnet build --configuration Release'
+               bat "\"C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\MSBuild\\Current\\Bin\\MSBuild.exe\" SNKRS.csproj /p:Configuration=Release"
+
             }
         }
 
