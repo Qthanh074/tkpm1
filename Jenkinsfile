@@ -49,7 +49,7 @@ pipeline {
         bat 'iisreset /stop'
         bat '''
         if exist "%WORKSPACE%\\publish" (
-            xcopy "%WORKSPACE%\\publish" "C:\\inetpub\\wwwroot\\TrienKhaiPhamMem" /E /Y /I /R
+            xcopy "%WORKSPACE%\\publish" "C:\\inetpub\\wwwroot\\TrienKhaiPhamMe" /E /Y /I /R
         ) else (
             echo "Publish folder not found!"
             exit /b 1
