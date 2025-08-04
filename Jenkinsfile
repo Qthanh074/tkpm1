@@ -9,26 +9,20 @@ pipeline {
             }
         }
 
-stage('restore package') {
-		steps
-		{
-			echo 'Restore package'
-			bat 'dotnet restore'
-		}
-	}
 
-
-        
+        stage('Restore NuGet packages') {
+            steps {
+                echo 'Restoring NuGet packages...'
+                bat 'C:\\Tools\\nuget\\nuget.exe restore SNKRS.sln'
+            }
+        }
 
         stage('Build') {
             steps {
                 echo 'Building project...'
-                bat '''
-                "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\MSBuild\\Current\\Bin\\MSBuild.exe" SNKRS.csproj /p:Configuration=Release
-                '''
+                bat '"C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\MSBuild\\Current\\Bin\\MSBuild.exe" SNKRS.csproj /p:Configuration=Release'
             }
         }
-
         stage('Tests') {
             steps {
                 echo 'Running tests...'
