@@ -16,7 +16,6 @@
 			}
 		}
 
-
 		stage('Build') {
 			steps {
 				echo 'Building project...'
