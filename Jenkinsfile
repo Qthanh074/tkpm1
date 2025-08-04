@@ -11,7 +11,7 @@ pipeline {
 
         stage('Restore package') {
             steps {
-                echo 'Restoring packages...'
+            echo 'Restoring NuGet packages...'
                bat 'dotnet restore SNKRS.csproj'
 
             }
